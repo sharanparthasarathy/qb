@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QBUILD Welcome Page</title>
+  <link rel="stylesheet" href="startingfile.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Guides:wght@400..700&family=Kalam:wght@300;400;700&family=Merienda:wght@300..900&display=swap');
+    </style>
+</head>
+<body>
+  <div class="wrapper" id="wrapper">
+    <div class="main-container">
+      <div class="welcome-text">
+        <h1 id="typing-text"></h1>
+        <h3>Where You Can Develop Your Knowledge..!!</h3>
+      </div>
+    </div>
+  </div>
+
+  <h1 style="padding-left: 550px;">STEPS TO BE FOLLOWED</h1>
+
+  <div class="scroll-container">
+    <div class="content-container from-left">
+      <div class="image-side"><img src="../Qbuild Phase2/Images/roleselection.jpg" alt="Image 1" class="image"></div>
+      <div class="text-side">
+        <h1>Role Selection</h1>
+        <ul>✅ Choose your role carefully from the available options.</ul>
+        <ul>✅ Roles define your access and responsibilities on the platform.</ul>
+        <ul>✅ Once selected, click Submit to proceed.</ul>
+        <ul>✅ If unsure, contact your administrator for guidance.</ul>
+      </div>
+    </div>
+
+    <div class="content-container from-right">
+      <div class="image-side"><img src="../Qbuild Phase2/Images/login.jpg" alt="Image 1" class="image"></div>
+      <div class="text-side">
+        <h1>Login</h1>
+        <ul>✅ Use the username and password provided by the administrator.</ul>
+        <ul>✅ Ensure you enter the exact details as provided.</ul>
+        <ul>✅ If you encounter any issues or need help, contact the administrator for support.</ul>
+        <ul>✅ If you forgot your password, use the Forgot Password option.</ul>
+      </div>
+    </div>
+
+    <div class="content-container from-left">
+      <div class="image-side"><img src="../Qbuild Phase2/Images/otp verification.jpg" alt="Image 1" class="image"></div>
+      <div class="text-side">
+        <h1>OTP Verification</h1>
+        <ul>✅ The OTP will be sent only to the email ID provided during the login process.</ul>
+        <ul>✅ Make sure you have access to that email before proceeding.</ul>
+        <ul>✅ Enter the OTP exactly as received in the email to verify your identity.</ul>
+        <ul>✅ If you don’t receive the OTP, check your spam folder or contact the administrator for assistance.</ul>
+      </div>
+    </div>
+
+    <div class="content-container from-right">
+      <div class="image-side"><img src="../Qbuild Phase2/Images/web handling.jpg" alt="Image 1" class="image"></div>
+      <div class="text-side">
+        <h1>Enjoy Web Benefits</h1>
+        <ul>✅ Explore exclusive features designed for your role.</ul>
+        <ul>✅ Access resources, participate in discussions, and stay updated.</ul>
+        <ul>✅ Customize your dashboard for a personalized experience.</ul>
+        <ul>✅ Maximize the platform’s benefits for growth and productivity.</ul>
+      </div>
+    </div>
+
+    <button id="explore-btn">🌎 Explore Now</button>
+  </div>
+
+  <div class="role-container hidden" id="role-container">
+    <button class="cancel-btn" id="cancel-btn">✖</button>
+    <h2>Select Your Role</h2>
+    <select id="role-select">
+      <option value="admin">Administrator</option>
+      <option value="trainer">Trainer</option>
+      <option value="employee">Employee</option>
+    </select>
+    <button id="submit-btn">Submit</button>
+  </div>
+
+  <!-- New Request Credentials Button -->
+  <button id="requests-btn">🔑 Request Credentials</button>
+  <script type="module" src="startingfile.js"></script>
+
+  <!-- New Credentials Modal -->
+  <div id="credentialsModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Enter Your Credentials</h2>
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="email" id="newEmail" placeholder="Email" required>
+      <select id="role">
+        <option value="admin">Administrator</option>
+        <option value="trainer">Trainer</option>
+        <option value="employee">Employee</option>
+      </select>
+      <button id="submitCredentials">Submit</button>
+    </div>
+  </div>
+
+  
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const containers = document.querySelectorAll('.content-container');
+      const exploreBtn = document.getElementById('explore-btn');
+      const roleContainer = document.getElementById('role-container');
+      const cancelBtn = document.getElementById('cancel-btn');
+      const submitBtn = document.getElementById('submit-btn');
+      const roleSelect = document.getElementById('role-select');
+      const requestsBtn = document.getElementById('requests-btn');
+      const credentialsModal = document.getElementById('credentialsModal');
+      const closeModal = document.getElementById('closeModal');
+
+      // Intersection Observer for animations
+      let observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      });
+
+      containers.forEach(container => observer.observe(container));
+
+      // Cancel button to hide role container
+      cancelBtn.addEventListener('click', () => {
+        roleContainer.classList.remove('visible');
+      });
+
+      // Explore button to show role container
+      exploreBtn.addEventListener('click', () => {
+        roleContainer.classList.add('visible');
+      });
+
+      // Redirect to different pages based on role selection
+      submitBtn.addEventListener('click', () => {
+        const selectedRole = roleSelect.value;
+        switch (selectedRole) {
+          case 'admin':
+            window.location.href = '../Qbuild Phase2/Admin/AdminLogin.html';
+            break;
+          case 'trainer':
+            window.location.href = '../Qbuild Phase2/Trainer/TrainerLogin.html';
+            break;
+          case 'employee':
+            window.location.href = '../Qbuild Phase2/Employee/EmployeeLogin.html';
+            break;
+        }
+      });
+
+      // Open credentials modal
+      requestsBtn.addEventListener('click', () => {
+        credentialsModal.style.display = "block";
+      });
+
+      // Close credentials modal
+      closeModal.addEventListener('click', () => {
+        credentialsModal.style.display = "none";
+      });
+
+      // Typewriter effect for welcome text
+      const typingText = document.getElementById('typing-text');
+      const text = "Welcome to the QBUILD..!! 📝";
+
+      function typeWriter() {
+        typingText.textContent = text;
+      }
+
+      window.onload = typeWriter;
+    });
+  </script>
+</body>
+</html>
